@@ -14,6 +14,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Lorenz SZ40/42 Cipher Machine simulator
+#
+# Author(s): Mike Dusseault
+#
+
 import sys
 import random
 
