@@ -1,0 +1,6 @@
+This is a simple simulator for the Lorenz SZ40/42 cipher machine.
+
+Simply run the python script, lorenz.py, for options.
+
+For more information, see the code. I'll put more in this file in the future.
+
