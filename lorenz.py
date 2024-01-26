@@ -190,7 +190,7 @@ class WheelBank:
 
     def get_val(self):
         result = []
-        for i in xrange(5):
+        for i in range(5):
             result.append(self.wheels[i].get_val())
         # Wheel numbered 1 is low bit, so we need to flip the bit order.
         # NOTE: I'm not 100% sure which wheel has the MSB and which the
@@ -226,7 +226,7 @@ class MotorWheelBank(WheelBank):
 def make_wheel(size):
     """ Used to randomly generate the on/off pin positions for a wheel. """
 
-    return [random.choice([0, 1]) for _ in xrange(size)]
+    return [random.choice([0, 1]) for _ in range(size)]
 
 
 class LorenzCipher:
@@ -325,26 +325,26 @@ def test():
     dst_cipher = LorenzCipher(K_wheels, S_wheels, M_wheels, indicator)
 
     # Display the wheel settings
-    print "--- K Wheels ---"
-    print src_cipher.K_wheels
-    print "--- S Wheels ---"
-    print src_cipher.S_wheels
-    print "--- M Wheels ---"
-    print src_cipher.M_wheels
+    print ("--- K Wheels ---")
+    print (src_cipher.K_wheels)
+    print ("--- S Wheels ---")
+    print (src_cipher.S_wheels)
+    print ("--- M Wheels ---")
+    print (src_cipher.M_wheels)
 
 
-    print "------------------------------"
+    print ("------------------------------")
     m = 'WE ATTACK AT DAWN AT 0600 HOURS. BRING BEER.'
-    print "Plaintext:", m
+    print ("Plaintext:", m)
     m_e = ascii_to_baudot(m)
-    print "m_e:", [ord(c) for c in m_e]
+    print ("m_e:", [ord(c) for c in m_e])
 
     c = src_cipher.crypt(m_e)
-    print 'Ciphertext: "%s"' % baudot_to_ascii(c)
-    print "Ciphertext ordinals:", [ord(ch) for ch in c]
+    print ('Ciphertext: "%s"' % baudot_to_ascii(c))
+    print ("Ciphertext ordinals:", [ord(ch) for ch in c])
 
     decr = dst_cipher.crypt(c)
-    print "Decrypted:", baudot_to_ascii(decr)
+    print ("Decrypted:", baudot_to_ascii(decr))
     
     
 def write_keyfile(output_file, K_sizes, S_sizes, M_sizes,
@@ -377,21 +377,21 @@ def main():
             K_sizes = [41, 31, 29, 26, 23]
             S_sizes = [43, 47, 51, 53, 59]
             M_sizes = [61, 37]
-            K_wheels = [make_wheel(K_sizes[i]) for i in xrange(len(K_sizes))]
-            S_wheels = [make_wheel(S_sizes[i]) for i in xrange(len(S_sizes))]
-            M_wheels = [make_wheel(M_sizes[i]) for i in xrange(len(M_sizes))]
+            K_wheels = [make_wheel(K_sizes[i]) for i in range(len(K_sizes))]
+            S_wheels = [make_wheel(S_sizes[i]) for i in range(len(S_sizes))]
+            M_wheels = [make_wheel(M_sizes[i]) for i in range(len(M_sizes))]
             # Indicator represents the start positions of the wheels,
             #   in this order:
             # [K1, K2, K3, K4, K5, M1, M2, S1, S2, S3, S4, S5]
             indicator = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             write_keyfile(key_file, K_sizes, S_sizes, M_sizes, K_wheels, S_wheels, M_wheels, indicator)
-            print "New key data written to", key_file
+            print ("New key data written to", key_file)
         elif cmd == 'b':
             baudot_file = sys.argv[2]
             f = open(baudot_file, 'r')
             bcode = f.read()
             f.close()
-            print baudot_to_ascii(bcode)
+            print (baudot_to_ascii(bcode))
             #print
         else:
              print_usage()
@@ -404,7 +404,7 @@ def main():
 
         #print input_file, output_file, key_file
         f = open(key_file, 'r')
-        exec f
+        exec(f)
         f.close()
         
         if cmd == 'e':
@@ -420,7 +420,7 @@ def main():
             f = open(output_file, 'w')
             f.write(ciphertext)
             f.close()
-            print "Encrypted message written to", output_file
+            print ("Encrypted message written to", output_file)
             
         elif cmd == 'd':
             f = open(input_file, 'r')
@@ -435,7 +435,7 @@ def main():
             f = open(output_file, 'w')
             f.write(plaintext_ascii)
             f.close()
-            print "Decrypted message written to", output_file
+            print ("Decrypted message written to", output_file)
             
         else:
             print_usage()
@@ -444,18 +444,18 @@ def main():
         print_usage()
 
 def print_usage():
-    print "Usage: %s <command> <arguments>" % sys.argv[0]
-    print "    <commands>"
-    print "        k <key file>: Creates a random key file with normal SZ40/42 teeth"
-    print "            counts and 0 indicators. Edit the file to suit."
-    print "        e <input file> <key file> <output file>: Encode ASCII plaintext to"
-    print "            Baudot code (5 bits per byte) and encrypt with wheel settings"
-    print "            in key file, writing ciphertext to output file."
-    print "        d <input file> <key file> <output file>: Decrypt the input file"
-    print "            with wheel settings in key file, decode from Baudot code and"
-    print "            and output ASCII plaintext to output file."
-    print "        b <input file>: Read input file in Baudot code and display ASCII"
-    print "            equivalent."
+    print ("Usage: %s <command> <arguments>" % sys.argv[0])
+    print ("    <commands>")
+    print ("        k <key file>: Creates a random key file with normal SZ40/42 teeth")
+    print ("            counts and 0 indicators. Edit the file to suit.")
+    print ("        e <input file> <key file> <output file>: Encode ASCII plaintext to")
+    print ("            Baudot code (5 bits per byte) and encrypt with wheel settings")
+    print ("            in key file, writing ciphertext to output file.")
+    print ("        d <input file> <key file> <output file>: Decrypt the input file")
+    print ("            with wheel settings in key file, decode from Baudot code and")
+    print ("            and output ASCII plaintext to output file.")
+    print ("        b <input file>: Read input file in Baudot code and display ASCII")
+    print ("            equivalent.")
     print
 
 if __name__ == "__main__":
